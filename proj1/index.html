@@ -38,12 +38,16 @@
 <h2 align="middle">Section I: Rasterization</h2>
 
 <h3 align="middle">Part 1: Rasterizing single-color triangles</h3>
-
+	
+	
 <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 	
 	<p>We rasterized triangles by creating a box around each triangle using the (x, y) coordinates. We created a box because that gave us a limited number of locations where a pixel could be placed. The box is created using the min and max values of the coordinates. Using the Three Line Test, we were able to determine whether or not a pixel is inside the triangle or outside. If the pixel is inside the triangle, we fill it using the method fillPixel(). Otherwise, we do not fill the pixel. Our algorithm is no worse than one that checks each sample within the bounding box of the triangle because we are looking at all of the coordinates within the max and min range of the box and then if there is a triangle, we fill pixel.</p>
 	<p>Extra Credit: We created a bounding box around the triangle and added the inside_triangle boolean variable which allows for early breaking out. Essentially, when one point is inside the triangle but some point with the same x-value is outside the triangle, then you know that all points with the same x-value and greater y-value will also be outside the triangle so you can break early. This works because you are scanning the bounding box left to right bottom to up (ascending order). Below you can see the improved time between the unoptimized and optimized code:</p>
 	<p>UNOPTIMIZED ./draw ../../../svg/basic/test5.svg</p>
+	
+	<img src="proj1/one.png">
+	
 	<p>Time to rasterize: 0.0012783 
 Time to rasterize: 0.0014003 
 Time to rasterize: 0.0005458 
@@ -90,6 +94,10 @@ Time to rasterize: 0.0001471
 
 <p>The purpose of supersampling is to antialias our triangles. The reason why supersampling is useful is because it eliminates jaggies, or images with poor pixel quality and jagged edges. Supersampling essentially samples a larger frequency of pixels within the same area and then averages down each triangle to get a blurred effect. We made modifications to the rasterization pipeline which accounts for the sample rate. Within the image, we look at each pixel and divide them into more pixels depending on the size of sample rate. We then use the point-in-triangle test to determine whether or not those pixels are in the bounds of our image. If the pixels are within our range, we find the average of their color values using the center of the pixels. This makes the edge smoother than the jaggies we had before.</p>
 <p>Extra Credit: We implemented random sampling as an alternative antialiasing method. Random sampling involved adding some random value to x and y for our floats xf and yf rather than using increment.</p>
+
+	<img src="proj1/two.png">
+	<img src="proj1/three.png">
+	<img src="proj1/four.png">
 	
 <h3 align="middle">Part 3: Transforms</h3>
 
@@ -100,7 +108,8 @@ Time to rasterize: 0.0001471
 <h3 align="middle">Part 4: Barycentric coordinates</h3>
 
 	<p>We used barycentric coordinates to interpolate colors among vertices of a triangle. Barycentric coordinates are a coordinate system in which the points are in reference to the simplex. In this case, that would be the center of a triangle. Interpolation is useful for texture coordinates, colors, normal vectors etc. We can achieve interpolation through barycentric coordinates which is what we did in this task. We take the three color vertices of a triangle find the weighted average of them in order to smoothly blend the colors. We find the alpha, beta, and gamma color weights and use the line equations to do that.</p>
-
+	<img src="proj1/six.png">
+	
 <h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
 
 	<p>In Task 5, we use pixel sampling to get the corresponding color of a function at some sample point in its texture space. We implemented it using two different methods: sample_nearest and sample_bilinear. We first find the weights alpha, beta, and gamma from our barycentric coordinates and apply them to the uv coordinates. We use a sample point for the entire process. To implement sample_nearest, we select the color value of the nearest texel to the uv coordinate using get_texel. To implement sample_bilinear, we take 4 sample locations and find the weighted average of their color values. Both nearest and bilinear sampling methods are different in that nearest sampling provides more aliasing affects which come from magnification and minification. Another general difference between the 2 methods is that since bilinear sampling requires more computation, it will also require more time than nearest sampling. So, in a case where speed is more important than accuracy, one may choose to use nearest sampling. There will be a large difference between the two methods when we sample pixels near thin lines because sample_nearest will look at the nearest pixel which could be a different color whereas sample_bilinear will find an average of the 4 closest colors. </p>
