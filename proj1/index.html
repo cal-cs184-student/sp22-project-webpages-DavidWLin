@@ -102,7 +102,8 @@ Time to rasterize: 0.0001471
 <h3 align="middle">Part 3: Transforms</h3>
 
 	<p>We added arms to our robot so that the robot is flexing its arms. We used rotation and translation to add 2 sections of arms on each side of the robot’s body. We also changed the colors to show some differentiation. </p>
-
+	<img src="proj1/task3.png">
+	
 <h2 align="middle">Section II: Sampling</h2>
 
 <h3 align="middle">Part 4: Barycentric coordinates</h3>
@@ -113,7 +114,7 @@ Time to rasterize: 0.0001471
 <h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
 
 	<p>In Task 5, we use pixel sampling to get the corresponding color of a function at some sample point in its texture space. We implemented it using two different methods: sample_nearest and sample_bilinear. We first find the weights alpha, beta, and gamma from our barycentric coordinates and apply them to the uv coordinates. We use a sample point for the entire process. To implement sample_nearest, we select the color value of the nearest texel to the uv coordinate using get_texel. To implement sample_bilinear, we take 4 sample locations and find the weighted average of their color values. Both nearest and bilinear sampling methods are different in that nearest sampling provides more aliasing affects which come from magnification and minification. Another general difference between the 2 methods is that since bilinear sampling requires more computation, it will also require more time than nearest sampling. So, in a case where speed is more important than accuracy, one may choose to use nearest sampling. There will be a large difference between the two methods when we sample pixels near thin lines because sample_nearest will look at the nearest pixel which could be a different color whereas sample_bilinear will find an average of the 4 closest colors. </p>
-
+	<p>As you can see in our images below, the colors of the images using bilinear sampling and nearest pixel sampling are different. Bilinear sampling is averaging the colors which is why the image is more green than blue. On the other hand, nearest sampling is looking at the closest color (in the ocean area) which is why it is more blue. However, the edges for bilinear sampling are more defined than in nearest pixel sampling. The edges in nearest pixel sampling have a greater blurred effect. </p>
 <h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
 
 	<p>Level sampling is when we sample from different levels of a mipmap, which is essentially a factor smaller than the original image. We can think of a mipmap as a zoomed in version of the original image with each level being smaller by a factor of 2. We conditioned on L_ZERO, L_NEAREST, and L_LINEAR for computing the zero-th, nearest, and linear mipmap levels respectively. We then created a helper function called get_level which calculates the correct level based on the barycentric coordinates of a triangle. Instead of using color like in previous parts, we use the texture coordinates of the triangle. We calculated the uv coordinates using the barycentric coordinates of (x, y+1) and (y, x+1) and then calculated the distance vectors between the points.  </p>
