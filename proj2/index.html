@@ -1,7 +1,199 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 2 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <style>
+    body {
+      padding: 100px;
+      width: 1000px;
+      margin: auto;
+      text-align: left;
+      font-weight: 300;
+      font-family: 'Open Sans', sans-serif;
+      color: #121212;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+  </style>
+  <title>CS 184 Mesh Editor</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2022</h1>
+  <h1 align="middle">Project 2: Mesh Editor</h1>
+  <h2 align="middle">Avni Jain, David Lin, CS184-DA2</h2>
+
+  <br><br>
+
+  <div>
+
+    <h2 align="middle">Overview</h2>
+    <p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole.
+      Share your thoughts on what interesting things you've learned from completing the project.</p>
+    <p> In this project, our goal was to create and evaluate Bezier curves, manipulate triangle meshes, and implement loop subdivision. We used Casteljau’s Algorithm in order to evaluate Bezier curves and also evaluated Bezier surfaces using a similar method. Additionally, we created a mesh editor that has the capability of flipping and splitting edges. Overall, we utilized the half-edge data structure to implement many of the parts.</p>
+    <h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
+
+    <h3 align="middle">Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
+    <p>Casteljau’s algorithm is used to evaluate Bezier curves and surfaces for some set of control points and parameters and it primarily uses recursive techniques. A Bezier curve is a parametric curve which is defined by a set of control points. We implemented it using linear interpolation which allows us to compute n-1 intermediate control points. We then connect these control points to create edges. By recursively repeating this process, we are eventually able to get to one final point which lies on the Bezier curve at some parameter t. </p>
+    <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a
+      column in that row. You might find this useful for framing and showing your result images in an organized fashion.
+    </p>
+
+    <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="im1.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="im2.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="im3.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="im4.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="im5.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="im6.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="im7.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="im8.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <h3 align="middle">Part 2: Bezier surfaces with separable 1D de Casteljau subdivision</h3>
+
+    <p>Casteljau’s algorithm can also be extended to Bezier surfaces as instead of dealing with 1D curves, we are looking at 2D surfaces. We essentially modify our algorithm from Part 1 to function for two dimensions. In order to do that, we implement the separable 1D de Casteljau’s algorithm. We implemented it by evaluating point u for the 4 Bezier curves in u and then using those 4 control points to evaluate point v on the moving curve. </p>
+
+    <img src="pt2_im1.png" align="middle" width="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <h2 align="middle">Section II: Sampling</h2>
+  
+    <h3 align="middle">Part 3: Average normals for half-edge meshes</h3>
+    <p>	We implemented the area-weighted vertex normals by iterating through the surrounding triangles incident to the vertex and then we calculated half the cross product to find the weighted area. We did this for every half-edge except for the first one.</p>
+    
+    <img src ="pt3_im1.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <img src ="pt3_im2.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <h3 align="middle">Part 4: Half-edge flip</h3>
+    <p> We used the half-edge data structure to calculate the vertex, edge, and face of the mesh. Using the setNeighbors method, we are able to reassign points such that the line in between the 2 triangles is flipped. We needed to input the next, twin, vertex, edge, and face values for each half-edge. Before even coding our implementation, we drew out what the original and flipped images should look like. This allowed us to label each vertex, edge, and face as well as decide how we wanted to organize them. Because we drew it out first, fortunately, we did not need to debug. Any errors we would’ve had would be easier to catch on paper than in the code itself.</p>
+
+    <img src ="pt4_im1.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <img src ="pt4_im2.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    
+    <h3 align="middle">Part 5: Half-edge split</h3>
+    <p>We implemented the edge split operation similar to how we implemented the edge flip operation in Part 4. The main difference is calculating the midpoint m at which we decide to draw a vertical line. In order to calculate m, we multiply 0.5 and the positions of v1 and v3, which are our vertices on the horizontal plane. We used a similar method where we drew out the new diagram with the edge split and labeled each vertex, edge, and face. We needed to add 1 new vertex, 4 new edges, and 2 new faces. It was also important for us to check whether or not we had already updated the vertex, edge, or face using the Boolean isNew. Fortunately, we did not need to debug this part because we were able to get it right on the first try using the diagrams we drew out on paper.</p>
+
+    <img src ="pt5_im1.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <img src ="pt5_im2.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Caption goes here.</figcaption>
+    
+    <h3 align="middle">Part 6: Loop subdivision for mesh upsampling</h3>
+
+    <p>Loop subdivision is when a triangle in a mesh is split into four triangles by calculating the midpoints of each edge and connecting the points. In order to implement loop subdivision, we needed to first calculate the position of the new vertex that splits the edge of A and B. The equation we used to perform that calculation is 3/8 * (A + B) + 1/8 * (C+D). We also need to find the update position of the old vertex and we do that using the equation (1 – n * u) * original_position + u * original_neighbor_position_sum, where n is the degree of the vertex and u is the constant 3/16. Once we calculate these values, we call the method splitEdge which splits the triangle based on the new points. Throughout this method, it was really important for us to keep track of isNew because we were dealing with a larger number of changed vertices, faces, and edges. We did run into an issue where the program would crash after 1 round of loop subdivision, or the mesh would appear to be translucent. After debugging, we realized that our issue actually lied in splitEdge even though it appeared to work in Part 5.  </p>
+    
+    <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="pt6_im1.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="pt6_im2.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="pt.6_im3.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>   
+      </table>
+    </div>
+    
+    <p>After loop subdivision, the sharp corners and edges tend to blend together, making the overall image look smoother. If we did not want the images to be smoother, we could pre-split the edges. This would make it so that the edges and corners maintain their sharpness.  </p>
+    
+    <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="pt6_im4.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="pt6_im5.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="pt6_im6.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+          <td>
+            <img src="pt6_im7.png" align="middle" width="400px" />
+            <figcaption align="middle">Caption goes here.</figcaption>
+          </td>
+        </tr>  
+      </table>
+    </div>
+    
+    <h2 align="middle">Section III: Optional Extra Credit</h2>
+    <p>If you are not participating in the optional mesh competition, don't worry about this section!</p>
+
+    <h3 align="middle">Part 7: Design your own mesh!</h3>
+    <p>We created a humanoid mesh using cubes and enhanced the mesh by including features like eyes, a nose, a mouth, and hair. We also added accessories on the humanoid mesh like a pair of shoes. Another difference is the arms which are flexing upwards.  </p>
+    
+</body>
+
 </html>
