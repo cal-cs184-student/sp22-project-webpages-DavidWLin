@@ -44,9 +44,6 @@
 
     <h3 align="middle">Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
     <p>Casteljau’s algorithm is used to evaluate Bezier curves and surfaces for some set of control points and parameters and it primarily uses recursive techniques. A Bezier curve is a parametric curve which is defined by a set of control points. We implemented it using linear interpolation which allows us to compute n-1 intermediate control points. We then connect these control points to create edges. By recursively repeating this process, we are eventually able to get to one final point which lies on the Bezier curve at some parameter t. </p>
-    <p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a
-      column in that row. You might find this useful for framing and showing your result images in an organized fashion.
-    </p>
 
     <div align="middle">
       <table style="width=100%">
@@ -217,11 +214,16 @@
       </table>
     </div>
     
+    <p>Refer to the above images for preprocess effects. Pre-processing/pre-splitting is helpful in changing the overall geometry of resulting meshes and in particular helping with symmetry. Yes, you can preprocess the cube with edge flips and splits so that the cube subdivides symmetrically. It will probably not be symmetrical without pre-processing because in the original cube there is only one diagonal per face so as you subdivide more and more the asymmetry will become more apparent; splitting beforehand and making sure the mesh is symmetrical with both diagonals per face before doing loop subdivision will help ensure that the cube subdivides symmetrically. </p>
+    
     <h2 align="middle">Section III: Optional Extra Credit</h2>
     <p>If you are not participating in the optional mesh competition, don't worry about this section!</p>
 
     <h3 align="middle">Part 7: Design your own mesh!</h3>
     <p>We created a humanoid mesh using cubes and enhanced the mesh by including features like eyes, a nose, a mouth, and hair. We also added accessories on the humanoid mesh like a pair of shoes. Another difference is the arms which are flexing upwards.  </p>
+    
+    <h3>LINK TO WEBSITE: https://cal-cs184-student.github.io/sp22-project-webpages-DavidWLin/proj2/index.html</h3>
+    <h3>LINK TO GITHUB: https://github.com/cal-cs184-student/sp22-project-webpages-DavidWLin</h3>
     
 </body>
 
