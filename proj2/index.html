@@ -53,44 +53,44 @@
         <tr>
           <td>
             <img src="im1.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 1</figcaption>
           </td>
           <td>
             <img src="im2.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 2</figcaption>
           </td>
         </tr>
         <br>
         <tr>
           <td>
             <img src="im3.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 3</figcaption>
           </td>
           <td>
             <img src="im4.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 4</figcaption>
           </td>
         </tr>
         <br>
         <tr>
           <td>
             <img src="im5.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 5</figcaption>
           </td>
           <td>
             <img src="im6.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Step 6 (Final Evaluated Point)</figcaption>
           </td>
         </tr>
         <br>
         <tr>
           <td>
             <img src="im7.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Showed Completed Bezier Curve</figcaption>
           </td>
           <td>
-            <img src="im8.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <img src="im8_new.png" align="middle" width="400px" />
+            <figcaption align="middle">Different Bezier Curve by moving original control points with new t value</figcaption>
           </td>
         </tr>
       </table>
@@ -102,7 +102,7 @@
     <p>Casteljau’s algorithm can also be extended to Bezier surfaces as instead of dealing with 1D curves, we are looking at 2D surfaces. We essentially modify our algorithm from Part 1 to function for two dimensions. In order to do that, we implement the separable 1D de Casteljau’s algorithm. We implemented it by evaluating point u for the 4 Bezier curves in u and then using those 4 control points to evaluate point v on the moving curve. </p>
 
     <img src="pt2_im1.png" align="middle" width="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">bez/teapot.bez screenshot</figcaption>
     
     <h2 align="middle">Section II: Sampling</h2>
   
@@ -110,29 +110,32 @@
     <p>	We implemented the area-weighted vertex normals by iterating through the surrounding triangles incident to the vertex and then we calculated half the cross product to find the weighted area. We did this for every half-edge except for the first one.</p>
     
     <img src ="pt3_im1.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">Flat Shading</figcaption>
     
     <img src ="pt3_im2.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">Area-weighted Vertex Normals Shading</figcaption>
     
     <h3 align="middle">Part 4: Half-edge flip</h3>
     <p> We used the half-edge data structure to calculate the vertex, edge, and face of the mesh. Using the setNeighbors method, we are able to reassign points such that the line in between the 2 triangles is flipped. We needed to input the next, twin, vertex, edge, and face values for each half-edge. Before even coding our implementation, we drew out what the original and flipped images should look like. This allowed us to label each vertex, edge, and face as well as decide how we wanted to organize them. Because we drew it out first, fortunately, we did not need to debug. Any errors we would’ve had would be easier to catch on paper than in the code itself.</p>
 
     <img src ="pt4_im1.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">Before Edge Flips</figcaption>
     
     <img src ="pt4_im2.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">After Some Edge Flips</figcaption>
     
     
     <h3 align="middle">Part 5: Half-edge split</h3>
     <p>We implemented the edge split operation similar to how we implemented the edge flip operation in Part 4. The main difference is calculating the midpoint m at which we decide to draw a vertical line. In order to calculate m, we multiply 0.5 and the positions of v1 and v3, which are our vertices on the horizontal plane. We used a similar method where we drew out the new diagram with the edge split and labeled each vertex, edge, and face. We needed to add 1 new vertex, 4 new edges, and 2 new faces. It was also important for us to check whether or not we had already updated the vertex, edge, or face using the Boolean isNew. Fortunately, we did not need to debug this part because we were able to get it right on the first try using the diagrams we drew out on paper.</p>
 
+    <img src ="pt4_im1.png" align ="middle" width ="400px" />
+    <figcaption align="middle">Before Edge Splits</figcaption>
+    
     <img src ="pt5_im1.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">After some Edge Splits</figcaption>
     
     <img src ="pt5_im2.png" align ="middle" width ="400px" />
-    <figcaption align="middle">Caption goes here.</figcaption>
+    <figcaption align="middle">After combination of both edge splits and edge flips</figcaption>
     
     <h3 align="middle">Part 6: Loop subdivision for mesh upsampling</h3>
 
@@ -143,18 +146,18 @@
         <tr>
           <td>
             <img src="pt6_im1.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Before Loop Subdivision</figcaption>
           </td>
           <td>
             <img src="pt6_im2.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">After 1 Loop Subdivision</figcaption>
           </td>
         </tr>
         <br>
         <tr>
           <td>
-            <img src="pt.6_im3.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <img src="pt6_im3.png" align="middle" width="400px" />
+            <figcaption align="middle">After 2 Loop Subdivisions</figcaption>
           </td>
         </tr>   
       </table>
@@ -167,22 +170,22 @@
         <tr>
           <td>
             <img src="pt6_im4.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Cube Before Loop Subdivision</figcaption>
           </td>
           <td>
             <img src="pt6_im5.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Cube After 1 Loop Subdivision</figcaption>
           </td>
         </tr>
         <br>
         <tr>
           <td>
             <img src="pt6_im6.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Cube After 2 Loop Subdivision</figcaption>
           </td>
           <td>
             <img src="pt6_im7.png" align="middle" width="400px" />
-            <figcaption align="middle">Caption goes here.</figcaption>
+            <figcaption align="middle">Cube After 3 Loop Subdivision</figcaption>
           </td>
         </tr>  
       </table>
