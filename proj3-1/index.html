@@ -71,32 +71,31 @@ We also implemented a ray-sphere intersection algorithm which checks to see if t
             </table>
         </div>
 	    <p> We used the image of a bunny to compare the rendering times with and without BVH acceleration. With BVH, the average speed is roughly 0.3631 million rays per second and we conduct roughly 32.781574 intersection tests per ray. Without BVH, the average speed is roughly 0.004 million rays per second and we conduct roughly 28,588 intersection tests per ray. We can see that rendering images with BVH acceleration is about 90 times faster than not using BVH acceleration. Additionally, BVH acceleration allows us to significantly reduce the number of intersection tests per ray that occur. On average, we conduct 1,180 times more intersection tests per ray when we do not use BVH. This is why our speed is significantly faster when using BVH acceleration. </p>
-	<p>Comparing the rendering times with and without BVH acceleration for the bunny:  
-WITH BVH ACCELERATION
-./pathtracer.exe -r 480 360 -f bunny.png ../../../dae/sky/CBbunny.dae
-[PathTracer] Input scene file: ../../../dae/sky/CBbunny.dae
-[PathTracer] Rendering using 1 threads
-[PathTracer] Collecting primitives... Done! (0.0136 sec)
-[PathTracer] Building BVH from 28588 primitives... Done! (0.2081 sec)
-[PathTracer] Rendering... 100%! (0.4758s)
-[PathTracer] BVH traced 172800 rays.
-[PathTracer] Average speed 0.3631 million rays per second.
-[PathTracer] Averaged 32.781574 intersection tests per ray.
-[PathTracer] Saving to file: bunny.png... Done!
-[PathTracer] Job completed.
-WITHOUT BVH ACCELERATION
-./pathtracer.exe -r 480 360 -f bunny.png ../../../dae/sky/CBbunny.dae
-[PathTracer] Input scene file: ../../../dae/sky/CBbunny.dae
-[PathTracer] Rendering using 1 threads
-[PathTracer] Collecting primitives... Done! (0.0127 sec)
-[PathTracer] Building BVH from 28588 primitives... Done! (0.1483 sec)
-[PathTracer] Rendering... 100%! (457.9295s)
-[PathTracer] BVH traced 172800 rays.
-[PathTracer] Average speed 0.0004 million rays per second.
-[PathTracer] Averaged 28588.000000 intersection tests per ray.
-[PathTracer] Saving to file: bunny.png... Done!
-[PathTracer] Job completed.
- </p>
+	    <p>Comparing the rendering times with and without BVH acceleration for the bunny:</p>
+	    <p>WITH BVH ACCELERATION</p>
+	    <p>./pathtracer.exe -r 480 360 -f bunny.png ../../../dae/sky/CBbunny.dae</p>
+	    <p>[PathTracer] Input scene file: ../../../dae/sky/CBbunny.dae</p>
+<p>[PathTracer] Rendering using 1 threads</p>
+<p>[PathTracer] Collecting primitives... Done! (0.0136 sec)</p>
+<p>[PathTracer] Building BVH from 28588 primitives... Done! (0.2081 sec)</p>
+<p>[PathTracer] Rendering... 100%! (0.4758s)</p>
+<p>[PathTracer] BVH traced 172800 rays.</p>
+<p>[PathTracer] Average speed 0.3631 million rays per second.</p>
+<p>[PathTracer] Averaged 32.781574 intersection tests per ray.</p>
+<p>[PathTracer] Saving to file: bunny.png... Done!</p>
+<p>[PathTracer] Job completed.</p>
+<p>WITHOUT BVH ACCELERATION</p>
+<p>./pathtracer.exe -r 480 360 -f bunny.png ../../../dae/sky/CBbunny.dae</p>
+<p>[PathTracer] Input scene file: ../../../dae/sky/CBbunny.dae</p>
+<p>[PathTracer] Rendering using 1 threads</p>
+<p>[PathTracer] Collecting primitives... Done! (0.0127 sec)</p>
+<p>[PathTracer] Building BVH from 28588 primitives... Done! (0.1483 sec)</p>
+<p>[PathTracer] Rendering... 100%! (457.9295s)</p>
+<p>[PathTracer] BVH traced 172800 rays.</p>
+<p>[PathTracer] Average speed 0.0004 million rays per second.</p>
+<p>[PathTracer] Averaged 28588.000000 intersection tests per ray.</p>
+<p>[PathTracer] Saving to file: bunny.png... Done!</p>
+<p>[PathTracer] Job completed.</p>
 	
 	
 	<h2 align="middle">Part 3: Direct Illumination</h2>
