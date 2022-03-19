@@ -86,13 +86,35 @@ In direct lighting by importance sampling, our goal is to increase efficiency by
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Spheres </figcaption>
+                    <img src="CBbunny_H_64_32.png" width="480px" />
+                    <figcaption align="middle">Bunny using Hemisphere Sampling</figcaption>
+			    <td align="middle">
+                    <img src="bunny_64_32.png" width="480px" />
+                    <figcaption align="middle">Bunny using Importance Sampling</figcaption>
                 </tr>
             </table>
         </div>
 	
-	
+	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="dragon-ray1.png" width="480px" />
+                    <figcaption align="middle">1 Light Ray</figcaption>
+		    <td align="middle">
+                    <img src="dragon-ray4.png" width="480px" />
+                    <figcaption align="middle">4 Light Rays</figcaption>
+                </tr>
+		<tr>
+                    <td align="middle">
+                    <img src="dragon-ray16.png" width="480px" />
+                    <figcaption align="middle">16 Light Rays</figcaption>
+		    <td align="middle">
+                    <img src="dragon-ray64.png" width="480px" />
+                    <figcaption align="middle">64 Light Rays</figcaption>
+                </tr>
+            </table>
+        </div>
 	
 	<h2 align="middle">Part 4: Global Illumination</h2>
         <p> The indirect lighting function allows us to render images with global illumination, in combination with direct lighting which we implemented earlier. We utilize Russian Roulette in order to provide an unbiased estimate; currently, setting a maximum depth leads to a biased estimate which is what we are trying to avoid. We use the function est_radiance_global_illumination() which estimates the total radiance given some direction. We use zero_bounce_radiance, one_bounce_radiance, and at_least_one_bounce_radiance to return the light resulting from zero bounces, direct illumination, and indirect illumination, respectively. 
@@ -158,17 +180,15 @@ In this section, we focused on implementing at_least_one_bounce_radiance which i
                     <td align="middle">
                     <img src="spheres_sample2.png" width="480px" />
                     <figcaption align="middle">Global Illumination, 2 sample per pixel, 4 light rays, 5 bounces</figcaption>
-		</tr>
-		<tr>
-                    <td align="middle">
+		    <td align="middle">
                     <img src="spheres_sample4.png" width="480px" />
                     <figcaption align="middle">Global Illumination, 4 sample per pixel, 4 light rays, 5 bounces</figcaption>
+		</tr>
+		<tr> 
                     <td align="middle">
                     <img src="spheres_sample8.png" width="480px" />
                     <figcaption align="middle">Global Illumination, 8 sample per pixel, 4 light rays, 5 bounces</figcaption>
-		</tr>
-		<tr>
-                    <td align="middle">
+		    <td align="middle">
                     <img src="spheres_sample16.png" width="480px" />
                     <figcaption align="middle">Global Illumination, 16 sample per pixel, 4 light rays, 5 bounces</figcaption>
                     <td align="middle">
