@@ -35,9 +35,7 @@ We also implemented a ray-sphere intersection algorithm which checks to see if t
                     <td align="middle">
                     <img src="cowwww.png" width="480px" />
                     <figcaption align="middle">Normal Shading for cow.dae</figcaption>
-                </tr>
-		<tr>
-                    <td align="middle">
+			    <td align="middle">
                     <img src="bunny.png" width="480px" />
                     <figcaption align="middle">Normal Shading for Bunny</figcaption>
                 </tr>
@@ -62,12 +60,17 @@ In order to convert the ray into the world space, we used the transformation mat
 Our ray is parameterized by r(t) = O + tD for 0<= t < inf. If we have a triangle with the coordinates P0, P1, and P2, we can use Barycentric Coordinates to set a point P, where P = (1 – b1 – b2)*P0 + b1*P1 + b2*P2. The intersection of the ray and triangle can then be seen when we set r(t) = P. We used the Moller-Trombore algorithm to solve for t, b1, and b2. Once we perform the intersection of the ray and triangle, we return a Boolean depending on whether or not the intersection exists. If t is within the range [min_t, max_t], we know the intersection exists and we return True. If the intersection exists, we update max_t to t. Otherwise, we return False.  
 We also implemented a ray-sphere intersection algorithm which checks to see if the ray intersects with some given sphere. The overall method is similar to that of the ray-triangle intersection algorithm except the equation for a sphere is different which changes the actual intersection. A sphere is parameterized by its center C and has a set of points P which satisfies (P-C)^2 – R^2 = 0. We solve for the intersection and find that t can essentially be solved using the quadratic formula. 
 </p>
+	<h4>Normal Shading for large .dae files that can only be rendered with BVH Acceleration</h4> 
         <div align="center">
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
+                    <img src="maxplanck.png" width="480px" />
+                    <figcaption align="middle">Maxplanck</figcaption>
+			    
+			    <td align="middle">
+                    <img src="CBlucy.png" width="480px" />
+                    <figcaption align="middle">Lucy</figcaption>
                 </tr>
             </table>
         </div>
@@ -115,8 +118,12 @@ In this section, we focused on implementing at_least_one_bounce_radiance which i
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
+                    <img src="bunny_adaptive.png" width="480px" />
+                    <figcaption align="middle">2048 Samples per pixel, 64 samples per batch, 5 bounces</figcaption>
+			    
+			    <td align="middle">
+                    <img src="bunny_adaptive_rate.png" width="480px" />
+                    <figcaption align="middle">Showing Sampling rates for adaptive sampling</figcaption>
                 </tr>
             </table>
         </div>
