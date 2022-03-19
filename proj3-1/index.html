@@ -87,7 +87,7 @@ In direct lighting by importance sampling, our goal is to increase efficiency by
                 <tr>
                     <td align="middle">
                     <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
+                    <figcaption align="middle">Spheres </figcaption>
                 </tr>
             </table>
         </div>
@@ -103,13 +103,48 @@ In this section, we focused on implementing at_least_one_bounce_radiance which i
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="images/example_image.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
-                </tr>
+                    <img src="spheres_direct_only.png" width="480px" />
+                    <figcaption align="middle">Spheres with Direct Illumination only (1024 samples per pixel)</figcaption>
+                <td align="middle">
+                    <img src="spheres_indirect_only.png" width="480px" />
+                    <figcaption align="middle">Spheres with Indirect Illumination only (1024 samples per pixel)</figcaption>
+		    </tr>
             </table>
         </div>
 	
-
+	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="spheres_sample1.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 1 sample per pixel, 4 light rays, 5 bounces</figcaption>
+                    <td align="middle">
+                    <img src="spheres_sample2.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 2 sample per pixel, 4 light rays, 5 bounces</figcaption>
+		</tr>
+		<tr>
+                    <td align="middle">
+                    <img src="spheres_sample4.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 4 sample per pixel, 4 light rays, 5 bounces</figcaption>
+                    <td align="middle">
+                    <img src="spheres_sample8.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 8 sample per pixel, 4 light rays, 5 bounces</figcaption>
+		</tr>
+		<tr>
+                    <td align="middle">
+                    <img src="spheres_sample16.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 16 sample per pixel, 4 light rays, 5 bounces</figcaption>
+                    <td align="middle">
+                    <img src="spheres_sample64.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 64 sample per pixel, 4 light rays, 5 bounces</figcaption>
+		</tr>
+		<tr>
+                    <td align="middle">
+                    <img src="spheres_1024_pixel.png" width="480px" />
+                    <figcaption align="middle">Global Illumination, 1024 sample per pixel, 4 light rays, 5 bounces</figcaption>
+		</tr>
+            </table>
+        </div>
 	
 	<h2 align="middle">Part 5: Adaptive Sampling</h2>
         <p> In this last part, we implemented adaptive sampling in order to reduce the noise that’s visible in images. We know that some pixels converge faster than others depending on the sampling rate. Adaptive sampling uses a large, fixed number of pixels by concentrating the pixels in the more difficult parts of the image. In our algorithm, we iterate through individual pixels and detect whether or not the pixel has converged. We do this by finding their mean and standard deviation; using the formula I = 1.96 * standard deviation/sqrt(n), we can figure out what the pixel’s convergence is. When I < maxTolerance * mean, we stop tracing more rays for that pixel.  
