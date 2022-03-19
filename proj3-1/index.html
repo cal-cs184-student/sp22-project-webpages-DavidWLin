@@ -144,6 +144,19 @@ We also implemented a ray-sphere intersection algorithm which checks to see if t
 	    <p> In this section, we focused on implementing at_least_one_bounce_radiance which is what gives us indirect illumination. To do that, we set a termination probability between 0.3 and 0.4 which we use later when determining whether or not we want to terminate the recursive call. Conditions for terminating include coin_flip(termination probability) to be true or reaching the maximum depth. Otherwise, we calculate a new ray with origin and direction calculated via w_in, o2w * w_in, and hit_p, and EPS_F, and one less depth value to keep track of how many times we have recursed; if there is an intersection between the new ray and bvh, then we recurse by calling at_least_one_bounce_radiation with the new ray and eventually add this value to L_out via L_out += (w_in.z * reflectance * recurse)/pdf/(continuation probability). We also need to ensure that there is at least one indirect ray intersection which is why we check if r.depth == max_ray_depth and subsequently recurse by calling at_least_one_bounce_radiance (repeating the process that was described in the above sentence). 
  
 </p>
+	    
+	<div align="center">
+	<h3> Images with Global Illumination: </h3>
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="bench.png" width="370px" />
+                    <figcaption align="middle">Bench, Global Illumination</figcaption>
+                <td align="middle">
+                    <img src="4_4.png" width="370px" />
+                    <figcaption align="middle"> , Global Illumination</figcaption>
+            </table>
+        </div> 
 	
 	<div align="center">
 	<h3> Bunny Images with various max_ray_depth values: </h3>
