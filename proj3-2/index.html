@@ -1,7 +1,92 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-2 here
-	</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Avni Jain and David Lin  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">Assignment 3-2: PathTracer</h1>
+    <h2 align="middle">Avni Jain and David Lin</h2>
+
+    <div class="padded">
+	    <p>In this project, we added additional features to our ray tracer such as rendering mirror and glass materials and microfacet material. We primarily focused on implementing various types of materials as features. We didn’t encounter too many problems other than missing small details in the equations which was easy to check for. </p>
+
+    <h2 align="middle">Part 1: Mirror and Glass Materials</h2>
+	    <p> In this part, our goal was to implement mirror and glass models. We first created a reflection function which uses just simply transforms the x, y, and z coordinates of wo to -x, -y, and z. The output is then returned as wi. </p> 
+	    <p> For mirror materials, we simply use our reflect function. We first set the pdf to 1 in sample_f() and return reflectance/abs_cos_theta(*wi) which is used for delta BSDFs. The reason why we return reflectance/abs_cos_theta(*wi) is because we are simply just trying to change the direction of the ray rather than the intensity or anything else to maintain a perfect mirror. </p>
+	    <p>Next, we implemented refraction which allows us to actually see the glass objects instead of just having black boxes/spheres. We first set our wo coordinates according to the spherical coordinate Snell’s equations. For the z coordinate, we specifically keep track of its sign using a variable named pos because z is negative when wo starts inside of an object with the index of refraction being greater than 0. Using Snell’s law, we determine that if 1-n^2(1-cos^2(theta)) < 0, we have total internal reflection; otherwise, we returned false. It was also important for us to keep track of whether or not we are entering or exiting because n = 1/ior when entering and n=ior when exiting. Once we have these values, we set the spherical coordinates which combine to be wi. If there is refraction, we return transmittance/abs_cos_theta(*wi)/eta^2.  </p>
+	    <p>In the last task, we utilize reflection and refraction to simulate glass material. We sample the glass BSDF using Schlick’s Approximation. This gives us a coin flip probability of whether or not we want to use relfection or refraction. If there’s total internal reflection, we assign the reflection of wo to *wi, the *pdf to 1, and return reflectance/abs_cos_theta(*wi). Otherwise, we will compute Shlick’s reflection coefficient and check to see if there is a coin flip probability.  </p>
+	    
+	    
+	    <h4>Below are images of spheres rendered with various max_depth values:</h4> 
+	    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="gems_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 1</figcaption>
+			    <td align="middle">
+                    <img src="bunny_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 2</figcaption>
+                </tr>
+		<tr>
+                    <td align="middle">
+                    <img src="gems_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 3</figcaption>
+			    <td align="middle">
+                    <img src="bunny_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 4</figcaption>
+                </tr>
+		    <tr>
+			<td align="middle">
+                    <img src="gems_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 5</figcaption>
+			    <td align="middle">
+                    <img src="bunny_normal.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 6</figcaption>
+		    </tr>
+            </table>
+        </div>
+      
+        
+	
+	
+	<h2 align="middle">Part 2: Microfacet Materials</h2>
+	    <p> In this part, our focus was to implement a microfacet model. We first implement the BRDF evaluation function; for that we just call the given functions. We then implement the normal distribution function and Fresnel term functions. The equations for both functions are relatively straightforward. We mainly just compute the different variables in the equations and then combine them to return the function. The most important part was implementing importance sampling which is able to sample with a higher probability of being correct. In order to have less noise and time spent converging, we sample pdfs that follow a normal distribution. Next, we get a pdf that follows the Beckmann NDF using the inversion method and inverse it. For solid angles, we use a slightly different method to calculate the pdf. We sample a theta and phi value and combine both.   </p> 
+
+	    <h4>Below are dragon images </h4> 
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="maxplanck.png" width="480px" />
+                    <figcaption align="middle">Maxplanck</figcaption>
+			    
+			    <td align="middle">
+                    <img src="cblucy_normal.png" width="480px" />
+                    <figcaption align="middle">Lucy</figcaption>
+                </tr>
+            </table>
+        </div>
+	    <p> We used the image of a bunny to compare the rendering times with and without BVH acceleration. With BVH, the average speed is roughly 0.3631 million rays per second and we conduct roughly 32.781574 intersection tests per ray. Without BVH, the average speed is roughly 0.004 million rays per second and we conduct roughly 28,588 intersection tests per ray. We can see that rendering images with BVH acceleration is about 90 times faster than not using BVH acceleration. Additionally, BVH acceleration allows us to significantly reduce the number of intersection tests per ray that occur. On average, we conduct 1,180 times more intersection tests per ray when we do not use BVH. This is why our speed is significantly faster when using BVH acceleration. </p>
+	 
+
+	
+	
+	<h2 align="middle">Final thoughts</h2>
+	    <p>As partners, we collaborated really well! We both like to code together instead of splitting up parts so we’ll usually spend time reading the spec first and then proceed with coding. This allows both of us cover all the material in a project rather than just get parts of it. It also makes debugging much easier because there are two people going through it rather than just one. We also have learned a lot more because if one person doesn’t know something, there’s a good chance the other person does and vice versa. 
+
+ </p> 
+
+</body>
+	<h4> Here is a link to our webpage: https://htmlpreview.github.io/?https://github.com/cal-cs184-student/sp22-project-webpages-DavidWLin/blob/master/proj3-1/index.html </h4>
 </html>
