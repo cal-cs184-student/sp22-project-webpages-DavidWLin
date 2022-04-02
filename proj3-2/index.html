@@ -64,6 +64,14 @@
             </table>
         </div>
       
+	    <p> At max_ray_depth = 0, we do not see any light other than the light source because there is no reflection or refraction. </p>
+<p> At max_ray_depth = 1, there is some light in the environment but the spheres are still relatively dark. There is some light being reflected off the right sphere. </p>
+<p> At max_ray_depth = 2, the left sphere appears to be more like a mirror and it is able to capture the image of the right sphere. There is also some reflected light in the right sphere.</p>
+<p> At max_ray_depth = 3, we can start to see the ceiling being reflected in the left sphere and the right image appears to be more glass-like. However, the shadow from the right sphere is pretty dark.</p>
+<p> At max_ray_depth = 4, the left sphere is also reflecting the color of the wall which is reflected from the right sphere. The right wall also has glare from the right sphere. The right sphere seems to have lighter shadows.</p>
+<p> At max_ray_depth = 5, there are a few more details. For example, the left sphere has a more clear reflection of the light.</p>
+<p> At max_ray_depth = 100, the shadows are lighter and also a bit smoother. The reflection of the left sphere on the right sphere is also more detailed as well as the glare on the wall.</p>
+
 	    <p></p>
 	    <p></p> 
 	
