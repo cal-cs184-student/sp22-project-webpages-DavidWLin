@@ -77,10 +77,13 @@
 	
 	
 	<h2 align="middle">Part 2: Microfacet Materials</h2>
-	    <p> In this part, our focus was to implement a microfacet model. We first implement the BRDF evaluation function; for that we just call the given functions. We then implement the normal distribution function and Fresnel term functions. The equations for both functions are relatively straightforward. We mainly just compute the different variables in the equations and then combine them to return the function. The most important part was implementing importance sampling which is able to sample with a higher probability of being correct. In order to have less noise and time spent converging, we sample pdfs that follow a normal distribution. Next, we get a pdf that follows the Beckmann NDF using the inversion method and inverse it. For solid angles, we use a slightly different method to calculate the pdf. We sample a theta and phi value and combine both.   </p> 
-
+	    <p> In this part, our focus was to implement a microfacet model.</p>
+	    <p>We first implement the BRDF evaluation function. We set f = F(wi) * G(wo, wi) * D(h) / (4 * dot(n, wo) * dot(n, wi)). Where F is Fresnel term, G is shadowing-masking term, D is normal distribution function. n is macro surface normal. h is the half vector calculated by normalizing wo + wi. </p>
+	    <p>We then implement the normal distribution function, which is based off the Beckmann distribution. In particular, D(h) = e^(-tan^2(theta_h)/alpha^2) / (pi * alpha^2 * cos^4(theta_h)). </p>
+	    <p>Then we implement the Fresnel term. We mainly just compute the different variables in the equations provided, using eta and k which together represent indices of refraction for conductors, along with wi which determines cos(thetai). <p>
+	<p>The most important part was implementing importance sampling which is able to sample with a higher probability of being correct. In order to have less noise and time spent converging, we sample pdfs that follow a normal distribution. Next, we get a pdf that follows the Beckmann NDF using the inversion method and inverse it. For solid angles, we use a slightly different method to calculate the pdf. We sample a r1 and r2 value from uniform [0,1) distribution, and use r1 and r2 and alpha to calculate theta and phi values and combine both. You then calculate p_theta(theta_h) and p_phi(phi_h) using theta and phi, and then use those values to calculate pw(h) which is then used to calculate the final pdf. </p>
 	    <h4 align = "middle">Below are images of a dragon that are rendered with different alpha values: </h4> 
-	    <p>This is using 128 samples per pixel, 1 samples per light, number of bounces = 5</p> 
+	    <p align = "middle">This is using 128 samples per pixel, 1 samples per light, number of bounces = 5</p> 
         <div align="center">
             <table style="width=100%">
                 <tr>
@@ -103,10 +106,10 @@
                 </tr>
             </table>
         </div>
-	    <p>Differences between different images: As alpha-value increases, the dragon becomes more matte. On the other hand, as the alpha-value decreases, the dragon becomes shiny/reflective, and more white dots appear, spread about in the image, for some reason. </p>
+	    <p>Differences between different images: As alpha-value increases, the dragon becomes more matte. On the other hand, as the alpha-value decreases, the dragon becomes more shiny/reflective, and more white dots appear, spread about in the image, for some reason. </p>
 	   
 	    <h4 align = "middle">Below are images of a bunny that are rendered using cosine hemisphere sampling and importance sampling: </h4> 
-	    <p>64 samples per pixel, 1 samples per light, number of bounces = 5.</p>
+	    <p align = "middle">This is using 64 samples per pixel, 1 samples per light, number of bounces = 5.</p>
 	<div align="center">
             <table style="width=100%">
                 <tr>
