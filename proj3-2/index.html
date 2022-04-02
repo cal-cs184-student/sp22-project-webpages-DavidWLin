@@ -22,10 +22,10 @@
 	    <p>In this project, we added additional features to our ray tracer such as rendering mirror and glass materials and microfacet material. We primarily focused on implementing various types of materials as features. We didn’t encounter too many problems other than missing small details in the equations which was easy to check for. </p>
 
     <h2 align="middle">Part 1: Mirror and Glass Materials</h2>
-	    <p> In this part, our goal was to implement mirror and glass models. We first created a reflection function which uses just simply transforms the x, y, and z coordinates of wo to -x, -y, and z. The output is then returned as wi. </p> 
+	    <p> In this part, our goal was to implement mirror and glass models. We first created a reflection function which just simply transforms the x, y, and z coordinates of wo to -x, -y, and z. The output is then returned as wi. </p> 
 	    <p> For mirror materials, we simply use our reflect function. We first set the pdf to 1 in sample_f() and return reflectance/abs_cos_theta(*wi) which is used for delta BSDFs. The reason why we return reflectance/abs_cos_theta(*wi) is because we are simply just trying to change the direction of the ray rather than the intensity or anything else to maintain a perfect mirror. </p>
 	    <p>Next, we implemented refraction which allows us to actually see the glass objects instead of just having black boxes/spheres. We first set our wo coordinates according to the spherical coordinate Snell’s equations. For the z coordinate, we specifically keep track of its sign using a variable named pos because z is negative when wo starts inside of an object with the index of refraction being greater than 0. Using Snell’s law, we determine that if 1-n^2(1-cos^2(theta)) < 0, we have total internal reflection; otherwise, we returned false. It was also important for us to keep track of whether or not we are entering or exiting because n = 1/ior when entering and n=ior when exiting. Once we have these values, we set the spherical coordinates which combine to be wi. If there is refraction, we return transmittance/abs_cos_theta(*wi)/eta^2.  </p>
-	    <p>In the last task, we utilize reflection and refraction to simulate glass material. We sample the glass BSDF using Schlick’s Approximation. This gives us a coin flip probability of whether or not we want to use relfection or refraction. If there’s total internal reflection, we assign the reflection of wo to *wi, the *pdf to 1, and return reflectance/abs_cos_theta(*wi). Otherwise, we will compute Shlick’s reflection coefficient and check to see if there is a coin flip probability.  </p>
+	    <p>In the last task, we utilize reflection and refraction to simulate glass material. We sample the glass BSDF using Schlick’s Approximation. This gives us a coin flip probability of whether or not we want to use reflection or refraction. If there’s total internal reflection, we assign the reflection of wo to *wi, the *pdf to 1, and return reflectance/abs_cos_theta(*wi). Otherwise, we will compute Shlick’s reflection coefficient and check to see if there is a coin flip probability. If coin_flip(R), then we assign the reflection of wo to *wi, set the *pdf to R, and return R * reflectance / abs_cos_theta(*wi). Otherwise, we assign the refraction of wo to *wi, set *pdf to 1-R, and return (1-R) * transmittance / abs_cos_theta(*wi) / eta^2. </p>
 	    
 	    
 	    <h4 align = "middle">Below are images of spheres rendered with various max_depth values:</h4> 
@@ -63,7 +63,8 @@
             </table>
         </div>
       
-        
+	    <p></p>
+	    <p></p> 
 	
 	
 	<h2 align="middle">Part 2: Microfacet Materials</h2>
