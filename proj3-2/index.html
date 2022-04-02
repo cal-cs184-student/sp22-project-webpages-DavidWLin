@@ -65,22 +65,57 @@
 	<h2 align="middle">Part 2: Microfacet Materials</h2>
 	    <p> In this part, our focus was to implement a microfacet model. We first implement the BRDF evaluation function; for that we just call the given functions. We then implement the normal distribution function and Fresnel term functions. The equations for both functions are relatively straightforward. We mainly just compute the different variables in the equations and then combine them to return the function. The most important part was implementing importance sampling which is able to sample with a higher probability of being correct. In order to have less noise and time spent converging, we sample pdfs that follow a normal distribution. Next, we get a pdf that follows the Beckmann NDF using the inversion method and inverse it. For solid angles, we use a slightly different method to calculate the pdf. We sample a theta and phi value and combine both.   </p> 
 
-	    <h4>Below are dragon images </h4> 
+	    <h4>Below are images of a dragon that are rendered with different alpha values: </h4> 
         <div align="center">
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="maxplanck.png" width="480px" />
-                    <figcaption align="middle">Maxplanck</figcaption>
+                    <img src="dragon_0.005.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.005</figcaption>
 			    
 			    <td align="middle">
-                    <img src="cblucy_normal.png" width="480px" />
-                    <figcaption align="middle">Lucy</figcaption>
+                    <img src="dragon_0.05.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.05</figcaption>
+                </tr>
+		     <tr>
+                    <td align="middle">
+                    <img src="dragon_0.25.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.25</figcaption>
+			    
+			    <td align="middle">
+                    <img src="dragon_0.5.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.5</figcaption>
                 </tr>
             </table>
         </div>
-	    <p> We used the image of a bunny to compare the rendering times with and without BVH acceleration. With BVH, the average speed is roughly 0.3631 million rays per second and we conduct roughly 32.781574 intersection tests per ray. Without BVH, the average speed is roughly 0.004 million rays per second and we conduct roughly 28,588 intersection tests per ray. We can see that rendering images with BVH acceleration is about 90 times faster than not using BVH acceleration. Additionally, BVH acceleration allows us to significantly reduce the number of intersection tests per ray that occur. On average, we conduct 1,180 times more intersection tests per ray when we do not use BVH. This is why our speed is significantly faster when using BVH acceleration. </p>
-	 
+	   
+	    <h4>Below are images of a bunny that are rendered using cosine hemisphere sampling and importance sampling: </h4> 
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="dragon_0.005.png" width="480px" />
+                    <figcaption align="middle">Hempisphere Sampling</figcaption>
+			    
+			    <td align="middle">
+                    <img src="dragon_0.05.png" width="480px" />
+                    <figcaption align="middle">Importance Sampling</figcaption>
+                </tr>
+		     
+            </table>
+        </div>
+	    
+	    <h4> Here's an image with a different conductor material: </h4> 
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="dragon_0.005.png" width="480px" />
+                    <figcaption align="middle">Hempisphere Sampling</figcaption>
+		
+		     
+            </table>
+        </div>
 
 	
 	
