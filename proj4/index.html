@@ -152,7 +152,49 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 	     <h2 align="middle">Part 5: Shaders</h2>
 	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
 	    <p>The Blinn-Phong Shading Model combines ambient, diffuse, and specular reflection. We implemented it by summing together each of these values. The equation we used is L = kaIa + kd(I/r^2)*max(0, n dot l) + ks(I/r^2)max(0, n dot h)^p.  </p> 
-	    
+		    <h4> Here are images with the Blinn-Phong Shader: </h4>
+		    
+			    <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="ambient-only-1.PNG" align="middle" width="400px" />
+	 <figcaption align="middle">Ambient Only</figcaption>
+          </td>
+          <td>
+            <img src="diffuse-only-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Diffuse Only</figcaption>
+
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+             <img src="specular-only-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Specular Only</figcaption>
+        
+          </td>
+          <td>
+            <img src="entire-phong-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Entire Blinn Phong Model</figcaption>
+      
+          </td>
+        </tr> 
+	      <br>
+        <tr>
+          <td>
+            <img src="sc5.PNG" align="middle" width="400px" />
+        
+          </td>
+          <td>
+            <img src="sc6.PNG" align="middle" width="400px" />
+
+          </td>
+        </tr>  
+      </table>
+    </div>    
+		    
+		    
             </table>
         </div>
 
