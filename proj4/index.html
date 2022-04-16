@@ -103,6 +103,51 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 	    <p>The next step is to build a spatial map. This process is relatively straightforward but we essentially recurse through the point masses and use the hash_position method to populate our map.  </p>
 	    <p> Lastly, we implemented self_collide which uses the hash map we populated to search up potential collisions of a point mass. For each pair of point masses and potential collision point masses, we check to see if they are within 2*thickness distance apart. If they are, we compute a correction vector which makes it so that the pairs are 2*thickness distance apart. Otherwise, we just move on to the next pair. We also scale down the final correction vector by simulation_steps which improves the accuracy. </p>
 		   
+		   
+		    
+		<h4> Here are images of how the cloth falls on itself from the early stage to a restful state: </h4>
+	    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="sc-1.PNG" width="480px" />
+       
+			    
+			    <td align="middle">
+                    <img src="sc2.PNG" width="480px" />
+                   
+                </tr>
+		     <tr>
+                    <td align="middle">
+                    <img src="sc3.PNG" width="480px" />
+                       
+			
+                </tr>
+		    
+		    <tr>
+                    <td align="middle">
+                    <img src="sc4.PNG" width="480px" />
+                    
+			
+                </tr>
+		    
+		      <tr>
+                    <td align="middle">
+                    <img src="sc5.PNG" width="480px" />
+                       
+			
+                </tr>
+		    
+		    <tr>
+                    <td align="middle">
+                    <img src="sc6.PNG" width="480px" />
+        
+			
+                </tr>
+            </table>
+        </div>
+		 
+		    
 	     <h2 align="middle">Part 5: Shaders</h2>
 	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
 	    <p>The Blinn-Phong Shading Model combines ambient, diffuse, and specular reflection. We implemented it by summing together each of these values. The equation we used is L = kaIa + kd(I/r^2)*max(0, n dot l) + ks(I/r^2)max(0, n dot h)^p.  </p> 
