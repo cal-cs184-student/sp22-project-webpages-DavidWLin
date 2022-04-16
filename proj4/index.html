@@ -1,7 +1,118 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 4 here
-	</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>  
+    div.padded {  
+      padding-top: 0px;  
+      padding-right: 100px;  
+      padding-bottom: 0.25in;  
+      padding-left: 100px;  
+    }  
+  </style> 
+<title>Avni Jain and David Lin  |  CS 184</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+<body>
+<br />
+<h1 align="middle">Assignment 4: Cloth Simulator</h1>
+    <h2 align="middle">Avni Jain and David Lin</h2>
+
+    <div class="padded">
+	    <h2 align="middle"> Overview </h2> 
+	    <p>In this project, we implemented a simulation of cloth which includes a spring and mass system. In order to do that, we explored how cloth collides with the ground or different objects in vertical and horizontal orientations. We also included various shading mechanisms such as Diffuse, Blinn-Phong, Texture Mapping, Bump and Displacement Map, and Mirror Shaders.  </p> 
+
+    <h2 align="middle">Part 1: Masses and Springs</h2>
+	    <p>In our implementation for part 1, our goal was to divide a cloth of desired dimensions and parameters into point masses connected by springs. We first created an evenly spaced grid of masses that spanned width and height lengths. We separated out our code into horizontal and vertical orientation. If the cloth was horizontal, we set the y coordinate of point masses to 1; if the cloth was vertical, we generated a small offset to use for the z coordinate. We also maintained a Boolean called pinned which keeps track of whether or not we’ve included the point mass’s index to the cloth’s pinned vector. Once all the point masses are stored in the point_masses vector, we applied structural, shear, and bending constraints using springs. The structural, shearing, and bending constraints exist differently depending on the location of the point mass and its adjacent point masses. </p> 
+	    
+	    <h4 align = "middle">Below are images of spheres rendered with various max_depth values:</h4> 
+	    <p>128 samples per pixel, 4 samples per light</p>
+	    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="spheres_depth0.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 0</figcaption>
+			    <td align="middle">
+                    <img src="spheres_depth1.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 1</figcaption>
+                </tr>
+		<tr>
+                    <td align="middle">
+                    <img src="spheres_depth2.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 2</figcaption>
+			    <td align="middle">
+                    <img src="spheres_depth3.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 3</figcaption>
+                </tr>
+		    <tr>
+			<td align="middle">
+                    <img src="spheres_depth4.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 4</figcaption>
+			    <td align="middle">
+                    <img src="spheres_depth5.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 5</figcaption>
+		    </tr>
+		    <tr>
+			    <td align="middle">
+			    	<img src="spheres_depth100.png" width="480px" />
+                    <figcaption align="middle">Max_Ray_Depth = 100</figcaption>
+		    </tr>
+            </table>
+        </div>
+     
+	    <p></p>
+	    <p></p> 
+	
+	
+	<h2 align="middle">Part 2: Simulation via Numerical Integration</h2>
+	    <p>For part 2, our goal was to simulate the cloth using numerical integration. This means that we needed to look at the physical equations of motion which could then be applied to the cloth’s point masses. By the end of this, we would know how the cloth moves at each time step.  </p> 
+	    <p>First, we compute the total force that acts on each point mass. In order to do that, we use the external_accelerations and mass to calculate the total external force, which is applied to every point mass. Next, we want to compute the spring correction forces which can be found using Hooke’s Law. We iterate through each spring and if the spring’s constraint type is disabled, we simply skip it; we check this using enable_structural_constraints. We also need to make sure that we apply the force Fs to a point mass and the opposite force to the other point mass so that there are equal and opposite forces. </p>
+	    <p>We then compute the new mass positions using Verlet’s Integration. We use the given equation which includes damping to simulate loss of energy. If the point pass is pinned, we don’t do anything; otherwise, we update the value of the mass position according to Verlet’s Integration.  </p>
+	    <p>In the final part of this section, we added a constraint feature to the simulation. We essentially correct the 2 point masses such that the length of the spring is no more than 10% greater than its rest_length. For each point mass, we only apply half the correction so that they sum to be 1 correction. If one point mass is pinned, we apply the correction just to the other point mass. If both are pinned, we do not apply the correction at all.  </p>
+	    
+	    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="dragon_0.005.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.005</figcaption>
+			    
+			    <td align="middle">
+                    <img src="dragon_0.05.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.05</figcaption>
+                </tr>
+		     <tr>
+                    <td align="middle">
+                    <img src="dragon_0.25.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.25</figcaption>
+			    
+			    <td align="middle">
+                    <img src="dragon_0.5.png" width="480px" />
+                    <figcaption align="middle">Alpha = 0.5</figcaption>
+                </tr>
+            </table>
+        </div>
+	    
+	    <h2 align="middle">Part 3: Handling Collisions with other Objects</h2>
+	    <p>Now, we will be adding support collisions for the cloth with other objects such as spheres and planes. To handle collisions with spheres, we essentially take a point mass and adjust its position if it’s within the sphere. If the point mass intersects with or is inside the sphere, we bump it to the surface of the sphere by first computing where the point mass would’ve intersected and extending its path. We also compute the tangent point so that we can extend its path between the sphere’s origin and point of intersection. Next, we compute the correction vector which will be applied to the point mass’s last_position; this is what helps the vector reach the tangent point. Lastly, we set the position to last_position and we account for variables such as friction.  
+Next, we worked on handling collisions with planes. The overall concept to handling collisions with spheres is extremely similar to planes. We just use a different method to figure out whether or not the cloth has intersected the plane. We know that if a mass has crossed over the plane in thie last step or if pm.last_position is not on the same side as pm.position, there is an intersection and we must apply the correction vector. This is what will bump the cloth onto the right side of the plane. 
+ </p> 
+	    
+	    <h2 align="middle">Part 4: Handling Self-Collisions</h2>
+	    <p>In part 4, we handle self-collisions of the cloth simulation. Without handling self-collisions, the cloth may clip through rather than falling normally. To implement self-collisions, we use spatial hashing techniques. First, we worked on hash_position which is a function that takes a point mass’s position and maps it to a float. The float uniquely represents a 3D box volume. To do this, we partitioned the space with the dimensions w, h, and t. We calculated w, h, and t as follows: w = 3 * width * num_width_points, h = 3 * height * num_height_points, t = max(w, h). We also made sure to check whether or not the cloth was horizontal or vertical; if the cloth was vertical, we swapped the h and t values. Using these values, we truncated the position coordinates to the closest values of the 3D box. We finally returned the sum of these values in a way such that we can use a unique key in our hash table.  </p> 
+	    <p>The next step is to build a spatial map. This process is relatively straightforward but we essentially recurse through the point masses and use the hash_position method to populate our map.  </p>
+	    <p> Lastly, we implemented self_collide which uses the hash map we populated to search up potential collisions of a point mass. For each pair of point masses and potential collision point masses, we check to see if they are within 2*thickness distance apart. If they are, we compute a correction vector which makes it so that the pairs are 2*thickness distance apart. Otherwise, we just move on to the next pair. We also scale down the final correction vector by simulation_steps which improves the accuracy. </p>
+		   
+	     <h2 align="middle">Part 5: Shaders</h2>
+	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
+	    <p>The Blinn-Phong Shading Model combines ambient, diffuse, and specular reflection. We implemented it by summing together each of these values. The equation we used is L = kaIa + kd(I/r^2)*max(0, n dot l) + ks(I/r^2)max(0, n dot h)^p.  </p> 
+	    
+            </table>
+        </div>
+
+	
+
+
+</body>
+	<h4> Here is a link to our webpage: https://htmlpreview.github.io/?https://github.com/cal-cs184-student/sp22-project-webpages-DavidWLin/blob/master/proj3-2/index.html </h4>
 </html>
