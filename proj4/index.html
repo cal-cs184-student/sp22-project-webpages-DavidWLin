@@ -98,6 +98,8 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 		    
 		    
 		    
+		    
+		    
 	    <h2 align="middle">Part 4: Handling Self-Collisions</h2>
 	    <p>In part 4, we handle self-collisions of the cloth simulation. Without handling self-collisions, the cloth may clip through rather than falling normally. To implement self-collisions, we use spatial hashing techniques. First, we worked on hash_position which is a function that takes a point mass’s position and maps it to a float. The float uniquely represents a 3D box volume. To do this, we partitioned the space with the dimensions w, h, and t. We calculated w, h, and t as follows: w = 3 * width * num_width_points, h = 3 * height * num_height_points, t = max(w, h). We also made sure to check whether or not the cloth was horizontal or vertical; if the cloth was vertical, we swapped the h and t values. Using these values, we truncated the position coordinates to the closest values of the 3D box. We finally returned the sum of these values in a way such that we can use a unique key in our hash table.  </p> 
 	    <p>The next step is to build a spatial map. This process is relatively straightforward but we essentially recurse through the point masses and use the hash_position method to populate our map.  </p>
@@ -106,47 +108,46 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 		   
 		    
 		<h4> Here are images of how the cloth falls on itself from the early stage to a restful state: </h4>
-	    <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="sc-1.PNG" width="480px" />
-       
-			    
-			    <td align="middle">
-                    <img src="sc2.PNG" width="480px" />
-                   
-                </tr>
-		     <tr>
-                    <td align="middle">
-                    <img src="sc3.PNG" width="480px" />
-                       
-			
-                </tr>
+	   
+		
 		    
-		    <tr>
-                    <td align="middle">
-                    <img src="sc4.PNG" width="480px" />
-                    
-			
-                </tr>
 		    
-		      <tr>
-                    <td align="middle">
-                    <img src="sc5.PNG" width="480px" />
-                       
-			
-                </tr>
-		    
-		    <tr>
-                    <td align="middle">
-                    <img src="sc6.PNG" width="480px" />
+		    <div align="middle">
+      <table style="width=100%">
+        <tr>
+          <td>
+            <img src="sc-1.PNG" align="middle" width="400px" />
+
+          </td>
+          <td>
+            <img src="sc2.PNG" align="middle" width="400px" />
+
+          </td>
+        </tr>
+        <br>
+        <tr>
+          <td>
+            <img src="sc3.PNG" align="middle" width="400px" />
         
-			
-                </tr>
-            </table>
-        </div>
-		 
+          </td>
+          <td>
+            <img src="sc4.PNG" align="middle" width="400px" />
+      
+          </td>
+        </tr> 
+	      <br>
+        <tr>
+          <td>
+            <img src="sc5.PNG" align="middle" width="400px" />
+        
+          </td>
+          <td>
+            <img src="sc6.PNG" align="middle" width="400px" />
+
+          </td>
+        </tr>  
+      </table>
+    </div>
 		    
 	     <h2 align="middle">Part 5: Shaders</h2>
 	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
