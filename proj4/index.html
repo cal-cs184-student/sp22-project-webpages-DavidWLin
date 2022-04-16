@@ -24,6 +24,8 @@
     <h2 align="middle">Part 1: Masses and Springs</h2>
 	    <p>In our implementation for part 1, our goal was to divide a cloth of desired dimensions and parameters into point masses connected by springs. We first created an evenly spaced grid of masses that spanned width and height lengths. We separated out our code into horizontal and vertical orientation. If the cloth was horizontal, we set the y coordinate of point masses to 1; if the cloth was vertical, we generated a small offset to use for the z coordinate. We also maintained a Boolean called pinned which keeps track of whether or not we’ve included the point mass’s index to the cloth’s pinned vector. Once all the point masses are stored in the point_masses vector, we applied structural, shear, and bending constraints using springs. The structural, shearing, and bending constraints exist differently depending on the location of the point mass and its adjacent point masses. </p> 
 	    
+	    <h4 align = "middle"> Here's an image of the cloth wireframe: </h4> 
+	    
 	    <h4 align = "middle">Below are images of spheres rendered with and without shearing constraints:</h4> 
 	 
      
