@@ -28,7 +28,7 @@
 	    <td align = "middle">
 	    <img src="pinned2.PNG" width="480px" />
                     <figcaption align="middle">Cloth Wireframe</figcaption>
-	    
+	    <td align = "middle">
 	    <h4 align = "middle">Below are images of spheres rendered with and without shearing constraints:</h4> 
 	 
      		<div align="center">
@@ -44,7 +44,7 @@
                 </tr>
 		     <tr>
                     <td align="middle">
-                    <img src="allthreeconstraints.PNG" width="480px" />
+                    <img src="allthreecontraints.PNG" width="480px" />
                     <figcaption align="middle">All 3 Constraints</figcaption>	    
 			
                 </tr>
@@ -62,22 +62,11 @@
             <table style="width=100%">
                 <tr>
                     <td align="middle">
-                    <img src="dragon_0.005.png" width="480px" />
-                    <figcaption align="middle">Alpha = 0.005</figcaption>
-			    
-			    <td align="middle">
-                    <img src="dragon_0.05.png" width="480px" />
-                    <figcaption align="middle">Alpha = 0.05</figcaption>
+                    <img src="planeatrest.PNG" width="480px" />
+                    <figcaption align="middle">Plane at Rest</figcaption>
+		
                 </tr>
-		     <tr>
-                    <td align="middle">
-                    <img src="dragon_0.25.png" width="480px" />
-                    <figcaption align="middle">Alpha = 0.25</figcaption>
-			    
-			    <td align="middle">
-                    <img src="dragon_0.5.png" width="480px" />
-                    <figcaption align="middle">Alpha = 0.5</figcaption>
-                </tr>
+		  
             </table>
         </div>
 	    
@@ -85,7 +74,30 @@
 	    <p>Now, we will be adding support collisions for the cloth with other objects such as spheres and planes. To handle collisions with spheres, we essentially take a point mass and adjust its position if it’s within the sphere. If the point mass intersects with or is inside the sphere, we bump it to the surface of the sphere by first computing where the point mass would’ve intersected and extending its path. We also compute the tangent point so that we can extend its path between the sphere’s origin and point of intersection. Next, we compute the correction vector which will be applied to the point mass’s last_position; this is what helps the vector reach the tangent point. Lastly, we set the position to last_position and we account for variables such as friction.  
 Next, we worked on handling collisions with planes. The overall concept to handling collisions with spheres is extremely similar to planes. We just use a different method to figure out whether or not the cloth has intersected the plane. We know that if a mass has crossed over the plane in thie last step or if pm.last_position is not on the same side as pm.position, there is an intersection and we must apply the correction vector. This is what will bump the cloth onto the right side of the plane. 
  </p> 
-	    
+		    <h4> Here are images of the shaded cloth in its final resting state with ks = 500, 5000, and 50000 </h4>
+	    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="sphere500.PNG" width="480px" />
+                    <figcaption align="middle">ks = 500</figcaption>
+			    
+			    <td align="middle">
+                    <img src="sphere5000.PNG" width="480px" />
+                    <figcaption align="middle">ks = 5000</figcaption>
+                </tr>
+		     <tr>
+                    <td align="middle">
+                    <img src="sphere50000.PNG" width="480px" />
+                    <figcaption align="middle">ks = 50000</figcaption>	    
+			
+                </tr>
+            </table>
+        </div>
+		    
+		    
+		    
+		    
 	    <h2 align="middle">Part 4: Handling Self-Collisions</h2>
 	    <p>In part 4, we handle self-collisions of the cloth simulation. Without handling self-collisions, the cloth may clip through rather than falling normally. To implement self-collisions, we use spatial hashing techniques. First, we worked on hash_position which is a function that takes a point mass’s position and maps it to a float. The float uniquely represents a 3D box volume. To do this, we partitioned the space with the dimensions w, h, and t. We calculated w, h, and t as follows: w = 3 * width * num_width_points, h = 3 * height * num_height_points, t = max(w, h). We also made sure to check whether or not the cloth was horizontal or vertical; if the cloth was vertical, we swapped the h and t values. Using these values, we truncated the position coordinates to the closest values of the 3D box. We finally returned the sum of these values in a way such that we can use a unique key in our hash table.  </p> 
 	    <p>The next step is to build a spatial map. This process is relatively straightforward but we essentially recurse through the point masses and use the hash_position method to populate our map.  </p>
