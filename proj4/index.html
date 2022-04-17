@@ -19,8 +19,8 @@
 
     <div class="padded">
 	    <h2 align="middle"> Overview </h2> 
-	    <p>In this project, we implemented a simulation of cloth which includes a spring and mass system. In order to do that, we explored how cloth collides with the ground or different objects in vertical and horizontal orientations. We also included various shading mechanisms such as Diffuse, Blinn-Phong, Texture Mapping, Bump and Displacement Map, and Mirror Shaders.  </p> 
-
+	<p>In this project, we implemented a simulation of cloth which includes a spring and mass system. In order to do that, we explored how cloth collides with the ground or different objects in vertical and horizontal orientations. We also included various shading mechanisms such as Diffuse, Blinn-Phong, Texture Mapping, Bump and Displacement Map, and Mirror Shaders. </p>
+	    
     <h2 align="middle">Part 1: Masses and Springs</h2>
 	    <p>In our implementation for part 1, our goal was to divide a cloth of desired dimensions and parameters into point masses connected by springs. We first created an evenly spaced grid of masses that spanned width and height lengths. We separated out our code into horizontal and vertical orientation. If the cloth was horizontal, we set the y coordinate of point masses to 1; if the cloth was vertical, we generated a small offset to use for the z coordinate. We also maintained a Boolean called pinned which keeps track of whether or not we’ve included the point mass’s index to the cloth’s pinned vector. Once all the point masses are stored in the point_masses vector, we applied structural, shear, and bending constraints using springs. The structural, shearing, and bending constraints exist differently depending on the location of the point mass and its adjacent point masses. </p> 
 	    
@@ -62,15 +62,15 @@
 	    <p>First, we compute the total force that acts on each point mass. In order to do that, we use the external_accelerations and mass to calculate the total external force, which is applied to every point mass. Next, we want to compute the spring correction forces which can be found using Hooke’s Law. We iterate through each spring and if the spring’s constraint type is disabled, we simply skip it; we check this using enable_structural_constraints. We also need to make sure that we apply the force Fs to a point mass and the opposite force to the other point mass so that there are equal and opposite forces. </p>
 	    <p>We then compute the new mass positions using Verlet’s Integration. We use the given equation which includes damping to simulate loss of energy. If the point pass is pinned, we don’t do anything; otherwise, we update the value of the mass position according to Verlet’s Integration.  </p>
 	    <p>In the final part of this section, we added a constraint feature to the simulation. We essentially correct the 2 point masses such that the length of the spring is no more than 10% greater than its rest_length. For each point mass, we only apply half the correction so that they sum to be 1 correction. If one point mass is pinned, we apply the correction just to the other point mass. If both are pinned, we do not apply the correction at all.  </p>
-		    <p><strong>Effect of Ks:</strong> _____________</p>
+		    <p><strong>Effect of Ks:</strong> Changing the spring constant ks will impact how flexible or stiff the cloth is. A smaller ks correlates to a more flexible cloth whereas increasing ks causes the cloth to be more stiff. When we have a very low ks, the cloth was very flexible and somewhat wrinkly at the beginning and then towards the end, bounced around a bit. This is due to the springs being stretchier. With a high ks, the cloth was not wrinkly at the beginning and when it falls, it seems to just have one bending portion at the end. Compared to the default parameters, the cloth with a higher ks did not show many wrinkles.</p>
 		    <div>Ks=5: <div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125269?h=a117a3927b&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ks-5"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    <div>Ks=50000: <div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125616?h=57b20bb86b&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ks-50000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    
-		    <p><strong>Effect of Density:</strong> _____________</p>
+		    <p><strong>Effect of Density:</strong> When we test different densities, we can see that a density of 1 makes the cloth feel very light as compared to increasing the density to 1000, which makes the cloth feel heavy. A higher density cloth moved around a lot more after falling whereas the smaller density cloth stayed in place more. From the beginning to the end, the smaller density cloth was faster and more flowy; the higher density cloth was still moving at the end and almost had a ripple effect. Compared to the default parameters, the cloth with a higher density just falls slower.</p>
 		    <div>Density=3:<div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700124167?h=2f5d324ab6&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="density-3.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    <div>Density=1000:<div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700124790?h=04b6aa8995&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="density-10000.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    
-		    <p><strong>Effect of Damping:</strong> _____________</p>
+		    <p><strong>Effect of Damping:</strong> For damping, a smaller value meant that we were losing less energy and a higher value meant that we were losing more energy. With a damping value of 0, the cloth fell much faster and wavered back and forth towards the end with more energy. A damping value of 1 caused the cloth to fall a lot slower and not waver back and forth. Instead, it mainly stayed in place at the end. Compared to the default parameters, the cloth with a damping value of 0 had the cloth significantly moving back and forth to the point where it was no longer fully visible in some areas.</p>
 		    <div>Damping=0%:<div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700126205?h=543f6427cd&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="damping-0-percent"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 	    	    <div>Damping=100%:<div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700126401?h=a5594a910a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="damping-100-percent"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    
@@ -91,6 +91,7 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
         </div>
 		    <h4> Here are images of the shaded cloth in its final resting state with Ks = 500, 5000, and 50000.</h4>
+		    <p>For ks = 500, the cloth is a lot “looser” which is why it is draped so closely to the sphere. On the other hand, the image with ks=50000 appears to have a much stiffer cloth due to the increased stiffness of the springs. This is why the cloth is not as closely draped to the sphere; the stiffness of the cloth prevents it from smoothly draping onto the sphere.  </p>
 	    <div align="center">
             <table style="width=100%">
                 <tr>
@@ -151,7 +152,7 @@ Next, we worked on handling collisions with planes. The overall concept to handl
       </table>    
     </div>
 		    
-		    <p><strong>Varying ks effect on behavior of cloth as it falls on itself:</strong> _________</p>
+		    <p><strong>Varying ks effect on behavior of cloth as it falls on itself:</strong> Increasing ks causes the cloth to be a lot stiffer and not bounce around as much as the cloth falls on itself. It also arrives at a resting position much sooner than a smaller ks and does not unfold. A lower ks causes the cloth to be a lot bouncier due to the springs. As the cloth falls, it has many more folds than a larger ks. It also bounces around more before reaching a resting position. </p>
 		    <div>ks=2000:<div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125742?h=450c05d930&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-2000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 		    <div>ks=20000:<div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125943?h=99bf065d78&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-20000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 		    
@@ -168,7 +169,7 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
 			    
 			    
-		    <p><strong>Varying Density effect on behavior of cloth as it falls on itself:</strong> _________ </p> 
+		    <p><strong>Varying Density effect on behavior of cloth as it falls on itself:</strong> Increasing the density causes the cloth to be more silky and it also falls in smaller folds. A lower density causes the cloth to fall in larger folds. </p> 
 			    <table style="width=100%">
                 <tr>
                     <td align="middle">
@@ -182,6 +183,11 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
 		    
 	     <h2 align="middle">Part 5: Shaders</h2>
+	<p>In our implementation for diffuse shading, our goal was to see what diffuse objects would look like under light. We used the formula Ld = kd(I/r^2)*max(0, n dot l) to calculate diffuse light. 
+Next, we implemented texture mapping which is when we sample from the u_texture_1 uniform using the built-in texture function. Essentially, the texture function samples from the texture space coordinates. 
+In this next section, we created bump and displacement maps. For bump mapping, our goal was to simulate bumps on an object by modifying the normal vectors. We modified the fragment shader in order to shade the surface for bump mapping. For displacement mapping, we modify the vertex shader in addition to the fragment shader. By modifying the vertex shader, we are also displacing the vertices instead of just the surface.
+Lastly, we created environment-mapped reflections which provide a mirror-like effect. We used an environment map to approximate the incoming radiance sample. Since we know the camera’s position and fragment’s position, we can compute the outgoing ray which we then reflect across the surface normal. We then sampled the environment map to get the incoming direction wi.</p>	    
+			    
 	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
 	    <p>The Blinn-Phong Shading Model combines ambient, diffuse, and specular reflection. We implemented it by summing together each of these values. The equation we used is L = kaIa + kd(I/r^2)*max(0, n dot l) + ks(I/r^2)max(0, n dot h)^p.  </p> 
 		    <h4> Here are images with the Blinn-Phong Shader: </h4>
@@ -237,6 +243,8 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
         </div>
 	
+		    <h5>Bump and Displacement Shading</h5>
+		    <p>Rendering an image with bump mapping as compared to displacement mapping changes how the resulting renders look. Bump mapping causes little to no impact on the shape of the sphere. On the other hand, displacement mapping significantly alters the silhouette of the sphere. The vertices of the sphere and cloth seem to be more spread apart. </p>
 	<h4> Here are images of the Bump Mapping Shader: </h4>
 	    <div align="center">
             <table style="width=100%">
@@ -270,8 +278,9 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
         </div>
 		    
+		    <h5>16 Coarseness vs 128 Coarseness</h5>
+		<p>When we use a low coarseness of 16, there seems to be no difference between both approaches. When we use a higher coarseness of 128, the displacement map is a lot more accurate. The sharp edges correspond to where there should be bumps. The displaced vertices also are placed closer to where they should be.</p>
 		<h5>Effect of changing coarseness using -o 16 -a 16</h5>
-		    <p>______________</p>
 		    <div align="center">
             <table style="width=100%">
                 <tr>
@@ -296,7 +305,6 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             </table>
         </div>
 		   <h5>Effect of changing coarseness using -o 128 -a 128</h5>
-		    <p>______________</p>
 <div align="center">
             <table style="width=100%">
                 <tr>
