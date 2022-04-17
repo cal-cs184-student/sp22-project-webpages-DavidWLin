@@ -149,16 +149,32 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 		    <p><strong>Varying ks effect on behavior of cloth as it falls on itself:</strong> _________</p>
 		    <div>ks=2000:<div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125742?h=450c05d930&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-2000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 		    <div>ks=20000:<div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125943?h=99bf065d78&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-20000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
-		    <img src="self-ks-2000-rest.PNG" align="middle" width="400px" />
-			<figcaption align="middle">Resting State for ks=2000</figcaption>
-			<img src="self-ks-20000-rest.PNG" align="middle" width="400px" />
+		    
+			    <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="self-ks-20000-rest.PNG" align="middle" width="400px" />
 			    <figcaption align="middle">Resting State for ks=20000</figcaption>
 			    
+			    <td align="middle">
+                    <img src="self-ks-20000-rest.PNG" align="middle" width="400px" />
+			    <figcaption align="middle">Resting State for ks=20000</figcaption>
+                </tr>	
+            </table>
+			    
+			    
 		    <p><strong>Varying Density effect on behavior of cloth as it falls on itself:</strong> _________ </p> 
-		    <img src="self-density-1-rest.PNG" align="middle" width="400px" />
+			    <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="self-density-1-rest.PNG" align="middle" width="400px" />
 	          <figcaption align="middle">Resting State for Density=1</figcaption>
-			<img src="self-density-1000-rest.PNG" align="middle" width="400px" />
-	          <figcaption align="middle">Resting State for Density=1000</figcaption>	
+			    
+			    <td align="middle">
+                   <img src="self-density-1000-rest.PNG" align="middle" width="400px" />
+	          <figcaption align="middle">Resting State for Density=1000</figcaption>
+                </tr>	
+            </table>
 		    
 	     <h2 align="middle">Part 5: Shaders</h2>
 	    <p>A shader is a program that is isolated from the actual program, but it runs simultaneously with the GPU. Essentially, it takes an input and returns a single 4D vector. Vertex shaders work by transforming the positions of shapes into 3D drawing coordinates. On the other hand, fragment shaders compute the rendering of a shape’s colors. They both work together to provide information regarding position and color which gives the lighting and material effects.   </p>
@@ -264,7 +280,57 @@ Next, we worked on handling collisions with planes. The overall concept to handl
 	
             </table>
         </div>
-
+		    
+		<h5>Effect of changing coarseness using -o 16 -a 16</h5>
+		    <p>______________</p>
+		    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="bump o16a16 n2h1.PNG" width="480px" />
+                    <figcaption align="middle">Bump (Coarseness 16), Normal: 2, Height: 1</figcaption>
+			    
+			    <td align="middle">
+                    <img src="bump o16a16 n2h1-2.PNG" width="480px" />
+                    <figcaption align="middle">Bump (Coarseness 16), Normal: 2, Height: 1</figcaption>
+                </tr>
+		<tr>
+                    <td align="middle">
+                    <img src="displacement o16a16 n15h0.05-1.PNG" width="480px" />
+                    <figcaption align="middle">Displacement (Coarseness 16), Normal: 100, Height: 0.03</figcaption>
+			    
+			    <td align="middle">
+                    <img src="displacement o16a16 n15h0.05-2.PNG" width="480px" />
+                    <figcaption align="middle">Displacement (Coarseness 16), Normal: 100, Height: 0.03</figcaption>
+                </tr>
+	
+            </table>
+        </div>
+		   <h5>Effect of changing coarseness using -o 128 -a 128</h5>
+		    <p>______________</p>
+<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="displacement-texture3-n100h0.03-1.PNG" width="480px" />
+                    <figcaption align="middle">Bump (Coarseness 128), Normal: 100, Height: 0.03</figcaption>
+			    
+			    <td align="middle">
+                    <img src="displacement-texture3-n100h0.03-2.PNG" width="480px" />
+                    <figcaption align="middle">Bump (Coarseness 128), Normal: 100, Height: 0.03</figcaption>
+                </tr>
+		    <tr>
+                    <td align="middle">
+                    <img src="displacement o128a128 n15h0.05-1.PNG" width="480px" />
+                    <figcaption align="middle">Displacement (Coarseness 128), Normal: 100, Height: 0.03</figcaption>
+			    
+			    <td align="middle">
+                    <img src="displacement o128a128 n15h0.05-2.PNG" width="480px" />
+                    <figcaption align="middle">Displacement (Coarseness 128), Normal: 100, Height: 0.03</figcaption>
+                </tr>
+	
+            </table>
+        </div>
 </body>
 	<h4> Here is a link to our webpage: https://htmlpreview.github.io/?https://github.com/cal-cs184-student/sp22-project-webpages-DavidWLin/blob/master/proj4/index.html </h4>
 </html>
