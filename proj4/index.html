@@ -48,6 +48,11 @@
                     <figcaption align="middle">All 3 Constraints</figcaption>	    
 			
                 </tr>
+		<tr>
+			 <td align="middle">
+                    <img src="pinned4.PNG" width="480px" />
+                    <figcaption align="middle">Final Resting State for scene/pinned4.json</figcaption>
+		    </tr>
             </table>
         </div>
 	
@@ -57,18 +62,6 @@
 	    <p>First, we compute the total force that acts on each point mass. In order to do that, we use the external_accelerations and mass to calculate the total external force, which is applied to every point mass. Next, we want to compute the spring correction forces which can be found using Hooke’s Law. We iterate through each spring and if the spring’s constraint type is disabled, we simply skip it; we check this using enable_structural_constraints. We also need to make sure that we apply the force Fs to a point mass and the opposite force to the other point mass so that there are equal and opposite forces. </p>
 	    <p>We then compute the new mass positions using Verlet’s Integration. We use the given equation which includes damping to simulate loss of energy. If the point pass is pinned, we don’t do anything; otherwise, we update the value of the mass position according to Verlet’s Integration.  </p>
 	    <p>In the final part of this section, we added a constraint feature to the simulation. We essentially correct the 2 point masses such that the length of the spring is no more than 10% greater than its rest_length. For each point mass, we only apply half the correction so that they sum to be 1 correction. If one point mass is pinned, we apply the correction just to the other point mass. If both are pinned, we do not apply the correction at all.  </p>
-	    
-	    <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="planeatrest.PNG" width="480px" />
-                    <figcaption align="middle">Plane at Rest</figcaption>
-		
-                </tr>
-		  
-            </table>
-        </div>
 		    <p><strong>Effect of Ks:</strong> _____________</p>
 		    <div>Ks=5: <div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125269?h=a117a3927b&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ks-5"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
 		    <div>Ks=50000: <div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125616?h=57b20bb86b&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ks-50000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></div>
@@ -85,6 +78,18 @@
 	    <p>Now, we will be adding support collisions for the cloth with other objects such as spheres and planes. To handle collisions with spheres, we essentially take a point mass and adjust its position if it’s within the sphere. If the point mass intersects with or is inside the sphere, we bump it to the surface of the sphere by first computing where the point mass would’ve intersected and extending its path. We also compute the tangent point so that we can extend its path between the sphere’s origin and point of intersection. Next, we compute the correction vector which will be applied to the point mass’s last_position; this is what helps the vector reach the tangent point. Lastly, we set the position to last_position and we account for variables such as friction.  
 Next, we worked on handling collisions with planes. The overall concept to handling collisions with spheres is extremely similar to planes. We just use a different method to figure out whether or not the cloth has intersected the plane. We know that if a mass has crossed over the plane in thie last step or if pm.last_position is not on the same side as pm.position, there is an intersection and we must apply the correction vector. This is what will bump the cloth onto the right side of the plane. 
  </p> 
+		    
+		    <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="planeatrest.PNG" width="480px" />
+                    <figcaption align="middle">Shaded Cloth lying at Rest on Plane</figcaption>
+		
+                </tr>
+		  
+            </table>
+        </div>
 		    <h4> Here are images of the shaded cloth in its final resting state with Ks = 500, 5000, and 50000.</h4>
 	    <div align="center">
             <table style="width=100%">
