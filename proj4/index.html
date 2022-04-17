@@ -69,7 +69,17 @@
 		  
             </table>
         </div>
-	    
+		    <h5>Effect of Ks</h5>
+		    <div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125742?h=450c05d930&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-2000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+		    <div style="padding:40% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700125943?h=99bf065d78&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="self-ks-20000"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+		    
+		    <h5>Effect of Density</h5>
+		    
+		    
+		    <h5>Effect of Damping</h5>
+		    <div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700126205?h=543f6427cd&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="damping-0-percent"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+	    	<div style="padding:38.75% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/700126401?h=a5594a910a&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="damping-100-percent"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+		    
 	    <h2 align="middle">Part 3: Handling Collisions with other Objects</h2>
 	    <p>Now, we will be adding support collisions for the cloth with other objects such as spheres and planes. To handle collisions with spheres, we essentially take a point mass and adjust its position if it’s within the sphere. If the point mass intersects with or is inside the sphere, we bump it to the surface of the sphere by first computing where the point mass would’ve intersected and extending its path. We also compute the tangent point so that we can extend its path between the sphere’s origin and point of intersection. Next, we compute the correction vector which will be applied to the point mass’s last_position; this is what helps the vector reach the tangent point. Lastly, we set the position to last_position and we account for variables such as friction.  
 Next, we worked on handling collisions with planes. The overall concept to handling collisions with spheres is extremely similar to planes. We just use a different method to figure out whether or not the cloth has intersected the plane. We know that if a mass has crossed over the plane in thie last step or if pm.last_position is not on the same side as pm.position, there is an intersection and we must apply the correction vector. This is what will bump the cloth onto the right side of the plane. 
