@@ -19,7 +19,7 @@
 
     <div class="padded">
 	    <h2 align="middle"> Overview </h2> 
-	<p>In this project, we implemented a simulation of cloth which includes a spring and mass system. In order to do that, we explored how cloth collides with the ground or different objects in vertical and horizontal orientations. We also included various shading mechanisms such as Diffuse, Blinn-Phong, Texture Mapping, Bump and Displacement Map, and Mirror Shaders. </p>
+	<p>In this project, we implemented a simulation of cloth which includes a spring and mass system. In order to do that, we constructed a mass and spring system, explored how cloth collides with the ground or different objects in vertical and horizontal orientations. We also included various shading mechanisms such as Diffuse, Blinn-Phong, Texture Mapping, Bump and Displacement Map, and Mirror Shaders. </p>
 	    
     <h2 align="middle">Part 1: Masses and Springs</h2>
 	    <p>In our implementation for part 1, our goal was to divide a cloth of desired dimensions and parameters into point masses connected by springs. We first created an evenly spaced grid of masses that spanned width and height lengths. We separated out our code into horizontal and vertical orientation. If the cloth was horizontal, we set the y coordinate of point masses to 1; if the cloth was vertical, we generated a small offset to use for the z coordinate. We also maintained a Boolean called pinned which keeps track of whether or not we’ve included the point mass’s index to the cloth’s pinned vector. Once all the point masses are stored in the point_masses vector, we applied structural, shear, and bending constraints using springs. The structural, shearing, and bending constraints exist differently depending on the location of the point mass and its adjacent point masses. </p> 
@@ -137,15 +137,23 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             <img src="sc2.PNG" align="middle" width="400px" />
 
           </td>
+	 <td>
+            <img src="sc3.PNG" align="middle" width="400px" />
+        
+          </td>
         </tr>
         <br>
         <tr>
           <td>
-            <img src="sc3.PNG" align="middle" width="400px" />
-        
-          </td>
-          <td>
             <img src="sc4.PNG" align="middle" width="400px" />
+      
+          </td>
+	  <td>
+            <img src="sc5.PNG" align="middle" width="400px" />
+      
+          </td>
+	  <td>
+            <img src="sc6.PNG" align="middle" width="400px" />
       
           </td>
         </tr> 
@@ -199,21 +207,44 @@ Next, we worked on handling collisions with planes. The overall concept to handl
             <img src="ambient-only-1.PNG" align="middle" width="400px" />
 	 <figcaption align="middle">Ambient Only</figcaption>
           </td>
-          <td>
-            <img src="diffuse-only-1.PNG" align="middle" width="400px" />
-		  <figcaption align="middle">Diffuse Only</figcaption>
-
+		<td>
+            <img src="ambient-only-2.PNG" align="middle" width="400px" />
+	 <figcaption align="middle">Ambient Only</figcaption>
           </td>
         </tr>
         <br>
         <tr>
-          <td>
-             <img src="specular-only-1.PNG" align="middle" width="400px" />
-		  <figcaption align="middle">Specular Only</figcaption>
-        
+		<td>
+            <img src="diffuse-only-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Diffuse Only</figcaption>
+
           </td>
+		<td>
+            <img src="diffuse-only-2.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Diffuse Only</figcaption>
+		</td>
+        </tr> 
+	      <br>
+        <tr>
+		<td>
+            <img src="specular-only-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Specular Only</figcaption>
+
+          </td>
+		<td>
+            <img src="specular-only-2.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Specular Only</figcaption>
+
+          </td>
+        </tr> 
+	              <tr>
           <td>
             <img src="entire-phong-1.PNG" align="middle" width="400px" />
+		  <figcaption align="middle">Entire Blinn Phong Model</figcaption>
+      
+          </td>
+			       <td>
+            <img src="entire-phong-2.PNG" align="middle" width="400px" />
 		  <figcaption align="middle">Entire Blinn Phong Model</figcaption>
       
           </td>
